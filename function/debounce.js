@@ -90,9 +90,9 @@ function debounce(func, wait, options) {
     var leading = true;
     trailing = false;
   } else if (isObject(options)) {
-    leading = options.leading;
+    leading = !!options.leading;
     maxWait = 'maxWait' in options && nativeMax(+options.maxWait || 0, wait);
-    trailing = 'trailing' in options ? options.trailing : trailing;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
   }
 
   function cancel() {
@@ -102,6 +102,7 @@ function debounce(func, wait, options) {
     if (maxTimeoutId) {
       clearTimeout(maxTimeoutId);
     }
+    lastCalled = 0;
     maxTimeoutId = timeoutId = trailingCall = undefined;
   }
 
@@ -117,7 +118,7 @@ function debounce(func, wait, options) {
         lastCalled = now();
         result = func.apply(thisArg, args);
         if (!timeoutId && !maxTimeoutId) {
-          args = thisArg = null;
+          args = thisArg = undefined;
         }
       }
     } else {
@@ -134,7 +135,7 @@ function debounce(func, wait, options) {
       lastCalled = now();
       result = func.apply(thisArg, args);
       if (!timeoutId && !maxTimeoutId) {
-        args = thisArg = null;
+        args = thisArg = undefined;
       }
     }
   }
@@ -176,7 +177,7 @@ function debounce(func, wait, options) {
       result = func.apply(thisArg, args);
     }
     if (isCalled && !timeoutId && !maxTimeoutId) {
-      args = thisArg = null;
+      args = thisArg = undefined;
     }
     return result;
   }
