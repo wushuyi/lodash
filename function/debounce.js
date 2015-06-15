@@ -92,9 +92,9 @@ define(['../lang/isObject', '../date/now'], function(isObject, now) {
       var leading = true;
       trailing = false;
     } else if (isObject(options)) {
-      leading = options.leading;
+      leading = !!options.leading;
       maxWait = 'maxWait' in options && nativeMax(+options.maxWait || 0, wait);
-      trailing = 'trailing' in options ? options.trailing : trailing;
+      trailing = 'trailing' in options ? !!options.trailing : trailing;
     }
 
     function cancel() {
@@ -104,6 +104,7 @@ define(['../lang/isObject', '../date/now'], function(isObject, now) {
       if (maxTimeoutId) {
         clearTimeout(maxTimeoutId);
       }
+      lastCalled = 0;
       maxTimeoutId = timeoutId = trailingCall = undefined;
     }
 
@@ -119,7 +120,7 @@ define(['../lang/isObject', '../date/now'], function(isObject, now) {
           lastCalled = now();
           result = func.apply(thisArg, args);
           if (!timeoutId && !maxTimeoutId) {
-            args = thisArg = null;
+            args = thisArg = undefined;
           }
         }
       } else {
@@ -136,7 +137,7 @@ define(['../lang/isObject', '../date/now'], function(isObject, now) {
         lastCalled = now();
         result = func.apply(thisArg, args);
         if (!timeoutId && !maxTimeoutId) {
-          args = thisArg = null;
+          args = thisArg = undefined;
         }
       }
     }
@@ -178,7 +179,7 @@ define(['../lang/isObject', '../date/now'], function(isObject, now) {
         result = func.apply(thisArg, args);
       }
       if (isCalled && !timeoutId && !maxTimeoutId) {
-        args = thisArg = null;
+        args = thisArg = undefined;
       }
       return result;
     }

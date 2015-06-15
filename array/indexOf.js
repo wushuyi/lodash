@@ -5,7 +5,7 @@ define(['../internal/baseIndexOf', '../internal/binaryIndex'], function(baseInde
 
   /**
    * Gets the index at which the first occurrence of `value` is found in `array`
-   * using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+   * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
    * for equality comparisons. If `fromIndex` is negative, it is used as the offset
    * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
    * performs a faster binary search.
