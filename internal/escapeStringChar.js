@@ -17,7 +17,7 @@ var stringEscapes = {
  * @returns {string} Returns the escaped character.
  */
 function escapeStringChar(chr) {
-  return '\\' + stringEscapes[chr];
+  return '\\' + (stringEscapes[chr] || chr);
 }
 
 module.exports = escapeStringChar;
